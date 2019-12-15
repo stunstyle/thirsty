@@ -1,4 +1,4 @@
-package com.fmi.Thirsty.security;
+package com.fmi.Thirsty.services;
 
 import com.fmi.Thirsty.model.User;
 import com.fmi.Thirsty.repository.UserRepository;

@@ -26,7 +26,7 @@ public class CocktailController
         return cocktailRepository.findAll();
     }
 
-    @PostMapping(path = "/cocktail/add")
+    @PostMapping(path = "/cocktail/add", consumes = "application/json")
     public Cocktail createCocktail(@RequestBody Cocktail cocktail)
     {
         return cocktailRepository.save(cocktail);

@@ -1,4 +1,4 @@
-package com.fmi.Thirsty;
+package com.fmi.Thirsty.controller;
 
 import com.fmi.Thirsty.model.User;
 import com.fmi.Thirsty.services.RegistrationService;
@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("/")
-class myController {
+class UserController
+{
 
     @Autowired
     RegistrationService service;
