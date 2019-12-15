@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/error", "/login", "/logout").permitAll()
+        http.authorizeRequests().antMatchers("/error", "/login", "/logout", "/register/user/**").permitAll()
             .antMatchers("/user/{username}/**").access("@userSecurity.hasUserAuthority(authentication, #username)")
             .anyRequest().authenticated().and().formLogin().and().httpBasic();
 
