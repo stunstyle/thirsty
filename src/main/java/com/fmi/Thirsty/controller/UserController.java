@@ -23,6 +23,11 @@ class UserController
     @Autowired
     RegistrationService service;
 
+    @GetMapping("/")
+    String getHome() {
+        return "Welcome to Thirsty";
+    }
+    
     @PostMapping(value = "register/user", consumes = "application/json")
     String register(@RequestBody User user)
     {
