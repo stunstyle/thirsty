@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @EnableWebSecurity
@@ -21,10 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/error", "/login", "/logout").permitAll()
-            .antMatchers("/user/{username}/**")
-            .access("@userSecurity.hasUserAuthority(authentication, #username)")
-            .anyRequest().authenticated().and()
-            .formLogin().and().httpBasic();
+            .antMatchers("/user/{username}/**").access("@userSecurity.hasUserAuthority(authentication, #username)")
+            .anyRequest().authenticated().and().formLogin().and().httpBasic();
 
         http.cors().disable().csrf().disable();
     }
@@ -39,4 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+}
+
+class MvcConfig extends WebMvcConfigurerAdapter {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+    }
 }
