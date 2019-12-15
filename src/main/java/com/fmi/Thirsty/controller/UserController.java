@@ -45,7 +45,7 @@ class UserController
             //TODO
         }
 
-        if (user.getSavedCocktail() != null)
+        if (user.getSavedCocktail() == null)
         {
             user.setSavedCocktail(Collections.singletonList(drink));
         }
@@ -57,7 +57,7 @@ class UserController
     }
 
     @GetMapping(path = "user/{username}/favorite")
-    public List<String> getFavorites(@PathVariable String username)
+    public List<String> getFavorites(@PathVariable(name = "username") String username)
     {
         return userRepository.findByUsername(username).getSavedCocktail();
     }

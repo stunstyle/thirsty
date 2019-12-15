@@ -1,5 +1,6 @@
 package com.fmi.Thirsty.model;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class User implements UserDetails {
 
+    @Indexed(unique=true, sparse=true)
     private String username;
 
     private String password;
