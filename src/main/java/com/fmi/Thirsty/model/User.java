@@ -78,4 +78,13 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public List<String> getSavedCocktail()
+    {
+        return savedCocktail;
+    }
+
+    public void setSavedCocktail(List<String> savedCocktail)
+    {
+        this.savedCocktail = savedCocktail;
+    }
 }
