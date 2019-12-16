@@ -8,9 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ThirstyApplication
 {
-    @Autowired
-    CocktailRepository cocktailRepository;
-
     public static void main(String[] args)
     {
         SpringApplication.run(ThirstyApplication.class, args);

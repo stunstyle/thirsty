@@ -17,7 +17,7 @@ public class IngredientController
         return repository.findByName(name);
     }
 
-    @PostMapping(path = "ingredient/create")
+    @PostMapping(path = "ingredient/create", consumes = "application/json")
     public Ingredient createIngredient(@RequestBody Ingredient ingredient)
     {
         return repository.save(ingredient);

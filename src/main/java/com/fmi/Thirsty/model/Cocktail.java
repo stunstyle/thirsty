@@ -29,6 +29,11 @@ public class Cocktail
 
     private boolean isCustom;
 
+    public Cocktail()
+    {
+
+    }
+
     public Cocktail(String name, String alcohol, String instruction, String glass, String imageLink, List<String> ingredients, List<String> quantity, boolean isCustom)
     {
         this.name = name;
