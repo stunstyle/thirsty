@@ -31,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/error", "/login", "/logout", "/register/user/**").permitAll()
 				.antMatchers("/user/{username}/**").access("@userSecurity.hasUserAuthority(authentication, #username)")
 				.anyRequest().authenticated().and().formLogin().and().httpBasic();
+
+		http.csrf().disable();
 	}
 
 	@Override
