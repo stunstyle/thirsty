@@ -30,8 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/error", "/login", "/logout", "/register/user/**").permitAll()
 				.antMatchers("/user/{username}/**").access("@userSecurity.hasUserAuthority(authentication, #username)")
-				.anyRequest().authenticated().and().formLogin().and().httpBasic();
-
+			    .antMatchers("/cocktail/**").authenticated()
+            .anyRequest().authenticated().and().formLogin().and().httpBasic();
 		http.csrf().disable();
 	}
 
