@@ -3,14 +3,14 @@ package com.fmi.Thirsty.controller;
 import com.fmi.Thirsty.model.Drink;
 import com.fmi.Thirsty.model.ApiCocktailWrapper;
 import com.fmi.Thirsty.model.Cocktail;
+import com.fmi.Thirsty.model.User;
 import com.fmi.Thirsty.repository.CocktailRepository;
+import com.fmi.Thirsty.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -19,6 +19,9 @@ public class CocktailController
 
     @Autowired
     CocktailRepository cocktailRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping(path = "/cocktail/get")
     public List<Cocktail> getCocktail()
@@ -36,6 +39,39 @@ public class CocktailController
     public List<Cocktail> getCocktailsByNames(@RequestBody List<String> names)
     {
         return cocktailRepository.findByNameIn(names);
+    }
+
+    @GetMapping(path = "/cocktail/top")
+    public List<Map.Entry<String, Integer>> getTopCocktails()
+    {
+        List<User> users = userRepository.findAll();
+
+        Map<String, Integer> top = new HashMap<>();
+
+        for (User user : users)
+        {
+            List<String> cocktails = user.getSavedCocktail();
+            if (cocktails != null)
+            {
+                for (String cocktail : cocktails)
+                {
+                    if (top.containsKey(cocktail))
+                    {
+                        top.put(cocktail, top.get(cocktail) + 1);
+                    }
+                    else
+                    {
+                        top.put(cocktail, 1);
+                    }
+                }
+            }
+        }
+
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(top.entrySet());
+
+        entries.sort(Comparator.comparingInt(Map.Entry::getValue));
+
+        return entries;
     }
 
     @GetMapping(path = "/cocktail/custom")
